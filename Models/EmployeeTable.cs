@@ -9,7 +9,7 @@ namespace ST10381071_PROG7311_3A_POE.Models
 
     {
         // Connection string for connecting to the SQLite database
-        public static string con_string = "Data Source=C:\\Users\\mathe\\OneDrive\\Desktop\\VARSITY\\BCA3 YEAR 3\\SEMESTER 1\\PROG7311 3A\\DB BROSWER\\POE2Database.db";
+        public static string con_string = "Data Source=Database/POE2Database.db";
 
         // SQLiteConnection objct. for managing the database connection
         public static SqliteConnection con = new SqliteConnection(con_string);
