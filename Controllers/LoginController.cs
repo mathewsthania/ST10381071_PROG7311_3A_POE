@@ -51,43 +51,14 @@ namespace ST10381071_PROG7311_3A_POE.Controllers
 
             if (farmerID != -1)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, name),
-                    new Claim(ClaimTypes.Email, email),
-                    new Claim(ClaimTypes.NameIdentifier, farmerID.ToString()),
-                    new Claim(ClaimTypes.Role, "Farmer")
-                };
-
-
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-
                 HttpContext.Session.SetString("UserName", name);
                 HttpContext.Session.SetString("UserRole", "Farmer");
 
-                return RedirectToAction("SubmitClaim", "Home", new { UserID = farmerID });
+                return RedirectToAction("AddProduct", "Home", new { UserID = farmerID });
             }
 
             else if (employeeID != -1)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, name),
-                    new Claim(ClaimTypes.Email, email),
-                    new Claim(ClaimTypes.NameIdentifier, employeeID.ToString()),
-                    new Claim(ClaimTypes.Role, "Employee")
-
-                };
-
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
                 HttpContext.Session.SetString("UserName", name);
                 HttpContext.Session.SetString("UserRole", "Employee");

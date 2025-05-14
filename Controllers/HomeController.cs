@@ -48,15 +48,50 @@ namespace ST10381071_PROG7311_3A_POE.Controllers
             return View();
         }
 
-        public IActionResult ViewFarmerProducts()
+        public IActionResult ViewFarmerProducts(int farmerUserId, string category = null, string startDate = null, string endDate = null)
         {
-            return View();
+            Console.WriteLine("Incoming farmerUserId: " + farmerUserId);
+
+            ViewBag.FarmerUserId = farmerUserId;
+            ViewData["Category"] = category;
+            ViewData["StartDate"] = startDate;
+            ViewData["EndDate"] = endDate;
+
+            ProductTable productTable = new ProductTable();
+            var products = productTable.GetProductsByFarmer(farmerUserId, category, startDate, endDate);
+
+            Console.WriteLine("Products returned: " + products.Count);
+
+            return View("~/Views/Home/ViewFarmerProducts.cshtml", products);
         }
 
         public IActionResult ManageFarmerDetails()
         {
             var farmers = farmTbl.get_AllFarmers();
             return View("~/Views/Home/ManageFarmerDetails.cshtml", farmers);
+        }
+
+        public IActionResult AddProduct(int userId)
+        {
+            // Pass the userId to the view in a Product model
+            Product model = new Product
+            {
+                FarmerUserID = userId
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(Product model)
+        {
+            ProductTable productTable = new ProductTable();
+            int result = productTable.Insert_Product(model);
+
+            if (result > 0)
+                return RedirectToAction("AddProduct"); // Or wherever you want to redirect
+            else
+                return View("Error"); // Handle failed insert
         }
 
         public IActionResult SignUp()

@@ -8,6 +8,7 @@ namespace ST10381071_PROG7311_3A_POE.Controllers
     public class EmployeeController : Controller
     {
         FarmerTable farmTbl = new FarmerTable();
+        ProductTable prodTbl = new ProductTable();
 
         // method/ action to display all the farmers thats signed up with the system
         public ActionResult ManageFarmerDetails()

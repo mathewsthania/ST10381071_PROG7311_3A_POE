@@ -53,34 +53,43 @@ namespace ST10381071_PROG7311_3A_POE.Models
             }
         }
 
-        public List<Product> GetProductsByFarmer(int farmerUserId, string category = null, string startDate = null, string endDate = null)
+        public List<Product> GetProductsByFarmer(int farmerId, string category, string startDate, string endDate)
         {
             List<Product> products = new List<Product>();
-
-            var sql = "SELECT * FROM Product WHERE FarmerUserID = @FarmerUserID";
-            if (!string.IsNullOrEmpty(category))
-                sql += " AND Category = @Category";
-            if (!string.IsNullOrEmpty(startDate))
-                sql += " AND ProductionDate >= @StartDate";
-            if (!string.IsNullOrEmpty(endDate))
-                sql += " AND ProductionDate <= @EndDate";
-
-            using (SqliteCommand cmd = new SqliteCommand(sql, con))
+            using (var con = new SqliteConnection(con_string))
             {
-                cmd.Parameters.AddWithValue("@FarmerUserID", farmerUserId);
+                con.Open();
+                string sql = "SELECT * FROM Product WHERE FarmerUserID = @FarmerUserID";
+
                 if (!string.IsNullOrEmpty(category))
-                    cmd.Parameters.AddWithValue("@Category", category);
-                if (!string.IsNullOrEmpty(startDate))
-                    cmd.Parameters.AddWithValue("@StartDate", startDate);
-                if (!string.IsNullOrEmpty(endDate))
-                    cmd.Parameters.AddWithValue("@EndDate", endDate);
-
-                try
                 {
-                    if (con.State != System.Data.ConnectionState.Open)
-                        con.Open();
+                    sql += " AND Category LIKE @Category";
+                }
 
-                    using (SqliteDataReader reader = cmd.ExecuteReader())
+                if (!string.IsNullOrEmpty(startDate))
+                {
+                    sql += " AND ProductionDate >= @StartDate";
+                }
+
+                if (!string.IsNullOrEmpty(endDate))
+                {
+                    sql += " AND ProductionDate <= @EndDate";
+                }
+
+                using (var cmd = new SqliteCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@FarmerUserID", farmerId);
+
+                    if (!string.IsNullOrEmpty(category))
+                        cmd.Parameters.AddWithValue("@Category", $"%{category}%");
+
+                    if (!string.IsNullOrEmpty(startDate))
+                        cmd.Parameters.AddWithValue("@StartDate", startDate);
+
+                    if (!string.IsNullOrEmpty(endDate))
+                        cmd.Parameters.AddWithValue("@EndDate", endDate);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -96,17 +105,7 @@ namespace ST10381071_PROG7311_3A_POE.Models
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error fetching products: " + ex.Message);
-                }
-                finally
-                {
-                    if (con.State == System.Data.ConnectionState.Open)
-                        con.Close();
-                }
             }
-
             return products;
         }
     }

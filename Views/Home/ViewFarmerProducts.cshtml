@@ -1,25 +1,176 @@
-﻿@model List<ST10381071_PROG7311_3A_POE.Models.Product>
+﻿@model IEnumerable<ST10381071_PROG7311_3A_POE.Models.Product>
+@{
+    ViewData["Title"] = "View Farmer Products";
+    var farmerUserId = ViewBag.FarmerUserId;
+}
 
-<h2>Products</h2>
+<div class="viewFarmerProducts-container">
+    <div class="top-bar">
+        <h2>Farmer's Products</h2>
+    </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Production Date</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
-            <tr>
-                <td>@product.Name</td>
-                <td>@product.Category</td>
-                <td>@product.ProductionDate</td>
-                <td>R @product.Price</td>
-            </tr>
+    <hr class="section-divider" />
+
+    <form method="get" asp-action="ViewFarmerProducts" asp-controller="Home" class="filter-bar">
+        <input type="hidden" name="farmerUserId" value="@farmerUserId" />
+
+        <label>Category:</label>
+        <input type="text" name="category" value="@ViewData["Category"]" />
+
+        <label>Start Date:</label>
+        <input type="date" name="startDate" value="@ViewData["StartDate"]" />
+
+        <label>End Date:</label>
+        <input type="date" name="endDate" value="@ViewData["EndDate"]" />
+
+        <button type="submit" class="btn btn-filter">Filter</button>
+    </form>
+
+    <hr class="section-divider" />
+
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Production Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.ProductID</td>
+                            <td>@product.Name</td>
+                            <td>@product.Category</td>
+                            <td>R @product.Price.ToString("F2")</td>
+                            <td>@product.ProductionDate</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="no-farmers">No products found for this farmer.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>
+
+<style>
+    body {
+        background-image: url('/css/COW_BACKGROUND.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: 'Century Gothic', sans-serif;
+        color: white;
+        margin: 0;
+        padding-top: 120px;
+    }
+
+    .viewFarmerProducts-container {
+        max-width: 1050px;
+        margin: 140px auto;
+        padding: 30px;
+        background-color: rgba(33, 80, 37, 0.7); /* Green with 70% opacity */
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+
+        .product-table th {
+            background-color: #154c2c;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
         }
-    </tbody>
-</table>
+
+        .product-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.03);
+            color: white;
+        }
+
+    h2 {
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: bolder;
+        font-size: 45px;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-top: 10px;
+    }
+
+    .section-divider {
+        border: none;
+        border-top: 2px solid #ffffff;
+        margin: 10px 0 30px 0;
+        width: 100%;
+    }
+
+    .no-farmers {
+        text-align: center;
+        font-size: 18px;
+        font-family: 'Century Gothic', sans-serif;
+        padding: 20px 0;
+    }
+
+    .filter-bar {
+        padding: 20px;
+        background-color: rgba(21, 76, 44, 0.95); /* Dark green, nearly opaque */
+        margin-bottom: 30px;
+        border-radius: 8px;
+        color: white;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+    }
+
+        .filter-bar label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .filter-bar input[type="text"],
+        .filter-bar input[type="date"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+            background-color: #e8f5e9;
+            color: #000;
+        }
+
+    .btn-filter {
+        background-color: yellow;
+        color: black;
+        width: 130px;
+        padding: 8px 14px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+        .btn-filter:hover {
+            background-color: black;
+            color: yellow;
+        }
+</style>
