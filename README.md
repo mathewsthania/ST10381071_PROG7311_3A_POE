@@ -103,6 +103,10 @@ Website Interfaces:
 
 <br>
 
+![image](https://github.com/user-attachments/assets/2574d5a4-ad39-4fbc-9539-76971af24774)
+
+<br>
+
 GitHub Repository: 
 -------------------
 [https://github.com/mathewsthania/ST10381071_PROG7311_3A_POE.git]
