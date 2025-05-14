@@ -3,6 +3,8 @@ Agri-Energy Connect
 
 Agri-Energy Connect is a sustainable agriculture and green energy web application, that allows farmers and employee to manage and view agricultural products, using SQLite.
 
+![image](https://github.com/user-attachments/assets/85d0fb6b-83ab-4bab-a764-157348162d70)
+
 Description
 -----------
 This web application is built with ASP.NET Core MVC, which allows farmers to manage their products and employees to view them.
@@ -82,6 +84,24 @@ Farmer: Log in as a farmer to manage your products.
 Employee: Log in as an employee to view the available products from different farmers and to manage or add new farmers.
 
 [ Can use user: Name: Jack | Email: jackblack@gmail.com   |  Password: Jack1234 ]
+
+Website Interfaces:
+-----------------------
+![image](https://github.com/user-attachments/assets/96ba362a-cdfe-4d2b-94fd-41ce288c0b3c)
+
+<br>
+
+![image](https://github.com/user-attachments/assets/28d8dbd3-8a4e-4e84-8856-87638efd7e16)
+
+<br>
+
+![image](https://github.com/user-attachments/assets/b31d07b9-759e-47ba-a50d-cfaf10f85871)
+
+<br>
+
+![image](https://github.com/user-attachments/assets/ac07c111-e6b2-4956-be55-429deb82530b)
+
+<br>
 
 GitHub Repository: 
 -------------------
