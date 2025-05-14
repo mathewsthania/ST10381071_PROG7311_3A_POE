@@ -1,0 +1,185 @@
+﻿<!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*THE*START*OF*FILE*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-->
+<!-- Full page background with overlay form -->
+<div class="signupFarmer-background"></div>
+
+<!-- Foreground content layer -->
+<div class="signupFarmer-overlay">
+    <form asp-controller="User" asp-action="SignUp" method="post" class="signupFarmer-form">
+        <h2>Create Farmer Account</h2>
+        <p class="signupFarmer-message">Enter the details below to add a new farmer profile 🌱</p>
+
+        <!-- input role -->
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <select name="role" class="form-control" required>
+                <option value="" disabled selected hidden>>>>Select a role>>></option>
+                <option value="Farmer">Farmer</option>
+                <option value="Employee">Employee</option>
+            </select>
+        </div>
+
+        <!-- input farmer name -->
+        <div class="form-group">
+            <label for="Name">Farmer Name</label>
+            <input type="text" name="Name" class="form-control" placeholder="John" required>
+        </div>
+
+        <!-- input farmer surname -->
+        <div class="form-group">
+            <label for="Surname">Farmer Surname</label>
+            <input type="text" name="Surname" class="form-control" placeholder="Doe" required>
+        </div>
+
+        <!-- input farmer email -->
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input type="email" name="Email" class="form-control" placeholder="johndoe@gmail.com" required>
+        </div>
+
+        <!-- input farmer password -->
+        <!-- creating a toggle password option - which allows the user to look at the password they are typing -->
+        <div class="form-group password-container">
+            <label for="Password">Farmer Password</label>
+            <input type="password" id="Password" name="Password" class="form-control" placeholder="********" required>
+            <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+        </div>
+
+        <button type="submit" class="addFarmer-btn">Add New Farmer</button>
+    </form>
+</div>
+
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('Password');
+        const icon = document.querySelector('.toggle-password');
+        const isPassword = passwordInput.type === 'password';
+
+        passwordInput.type = isPassword ? 'text' : 'password';
+        icon.textContent = isPassword ? '🙈' : '👁️';
+    }
+</script>
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Century Gothic', sans-serif;
+    }
+
+    label {
+        font-family: 'Century Gothic', sans-serif;
+        text-align: left;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    .signupFarmer-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-image: url('/css/SIGNUP_BACKGROUND.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .signupFarmer-overlay {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .signupFarmer-form {
+        background-color: rgba(34, 85, 34, 0.9);
+        padding: 40px;
+        border-radius: 15px;
+        max-width: 500px;
+        width: 90%;
+        color: white;
+        text-align: center;
+    }
+
+        .signupFarmer-form h2 {
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .signupFarmer-message {
+        font-size: 14px;
+        margin-bottom: 25px;
+        color: white;
+        font-style: italic;
+    }
+
+    .addFarmer-btn {
+        background-color: white;
+        color: #333;
+        padding: 10px;
+        border: none;
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: bold;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        /* adding in hover effects for the signup button*/
+        .addFarmer-btn:hover {
+            background-color: yellow;
+            border-color: white;
+            color: black; /* text colour */
+        }
+
+    .password-container label {
+        font-family: 'Century Gothic', sans-serif;
+        text-align: left;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .password-container input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: 70%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        user-select: none;
+        font-size: 18px;
+        color: #333;
+    }
+</style>
+
+<!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*THE*END*OF*FILE*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-->

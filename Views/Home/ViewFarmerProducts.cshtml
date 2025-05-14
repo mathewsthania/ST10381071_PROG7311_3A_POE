@@ -1,0 +1,25 @@
+﻿@model List<ST10381071_PROG7311_3A_POE.Models.Product>
+
+<h2>Products</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Production Date</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Category</td>
+                <td>@product.ProductionDate</td>
+                <td>R @product.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Manage Farmer Details";
+}
+
+@model IEnumerable<ST10381071_PROG7311_3A_POE.Models.FarmerTable>
+
+<div class="manageFarner-container">
+    <div class="top-bar">
+        <h2>Manage Farmers</h2>
+        <a href="@Url.Action("AddNewFarmer", "Employee")" class="btn btn-addFarmer" style="margin-bottom: 20px;">Add New Farmer</a>
+    </div>
+
+    <hr class="section-divider" />
+
+    <table class="farmer-table">
+        <thead>
+            <tr>
+                <th>Farmer ID</th>
+                <th>Farmer First Name</th>
+                <th>Farmer Surname</th>
+                <th>Farmer Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var farmer in Model)
+                {
+                    <tr>
+                        <td>@farmer.UserID</td>
+                        <td>@farmer.Name</td>
+                        <td>@farmer.Surname</td>
+                        <td>@farmer.Email</td>
+                        <td>
+                            <a href="@Url.Action("EditFarmer", "Employee", new {id = farmer.UserID})" class="btn btn-edit">Edit</a>
+                            <a href="@Url.Action("DeleteFarmer", "Employee", new {id = farmer.UserID})" class="btn btn-delete" onclick="return confirm('Are you sure you would like to delete this farmer?')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="no-farmers">No farmers were found.</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* background colour*/
+    body {
+        background-color: #215025;
+        font-family: 'Century Gothic', sans-serif;
+        color: white;
+        padding-top: 120px;
+    }
+
+    .manageFarmer-container {
+        max-width: 1000px;
+        margin: 140px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.05); /* Transparent white overlay */
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .farmer-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: rgba(255, 255, 255, 0.02); /* Slight transparent table body */
+    }
+
+        .farmer-table th {
+            background-color: #154c2c; /* Darker green */
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .farmer-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.03); /* Light transparent rows */
+            color: white;
+        }
+
+            .farmer-table td a {
+                margin-right: 10px;
+            }
+
+    .no-farmers {
+        text-align: center;
+        font-size: 18px;
+        font-family: 'Century Gothic', sans-serif;
+        padding: 20px 0;
+    }
+
+    h2 {
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: bolder;
+        font-size: 45px;
+    }
+
+    th {
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: bolder;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-top: 10px;
+    }
+
+    .btn {
+        font-family: 'Century Gothic', sans-serif; /* Targeting all buttons for Century Gothic font */
+        padding: 8px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .btn-addFarmer {
+        background-color: yellow;
+        color: black;
+    }
+
+        .btn-addFarmer:hover {
+            background-color: black;
+            color: white;
+        }
+
+    .btn-edit {
+        background-color: yellow;
+        color: black;
+    }
+
+        .btn-edit:hover {
+            background-color: black;
+            color: yellow;
+        }
+
+    .btn-delete {
+        background-color: black;
+        color: white;
+    }
+
+        .btn-delete:hover {
+            background-color: red;
+            color: white;
+        }
+
+    .section-divider {
+        border: none;
+        border-top: 2px solid #ffffff; /* visible white line */
+        margin: 10px 0 30px 0;
+        width: 100%;
+    }
+</style>

@@ -1,0 +1,148 @@
+﻿<!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*THE*START*OF*FILE*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-->
+<!-- Full page background with overlay form -->
+<div class="login-background"></div>
+
+<!-- Foreground content layer -->
+<div class="login-overlay">
+    <form asp-controller="Login" asp-action="UserLogin" method="post" class="login-form">
+        <h2>Log in</h2>
+        <p class="login-message">Welcome back to your farming dashboard!🌾</p>
+
+        <input type="text" name="Name" class="form-control" placeholder="Name" value="@ViewBag.Name" required>
+        <input type="email" name="Email" class="form-control" placeholder="Example@gmail.com" value="@ViewBag.Email" required>
+
+        <!-- creating a toggle password option - which allows the user to look at the password they are typing -->
+        <div class="password-container">
+            <input type="password" id="Password" name="Password" class="form-control" placeholder="Password" required>
+            <span class="toggle-password" onclick="togglePasswordVisibility()">
+                👁️
+            </span>
+        </div>
+
+        <button type="submit" class="login-btn">Log in</button>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" style="margin-top:15px;">@ViewBag.ErrorMessage</div>
+        }
+    </form>
+</div>
+
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('Password');
+        const icon = document.querySelector('.toggle-password');
+        const isPassword = passwordInput.type === 'password';
+
+        passwordInput.type = isPassword ? 'text' : 'password';
+        icon.textContent = isPassword ? '🙈' : '👁️';
+    }
+</script>
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Century Gothic', sans-serif;
+    }
+
+    .login-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-image: url('/css/SIGNUP_BACKGROUND.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-overlay {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .login-form {
+        background-color: rgba(34, 85, 34, 0.9); /* matching the green tone */
+        padding: 40px;
+        border-radius: 15px;
+        max-width: 500px;
+        width: 90%;
+        color: white;
+        text-align: center;
+    }
+
+        .login-form h2 {
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 32px;
+        }
+
+    .login-message {
+        font-size: 14px;
+        margin-bottom: 25px;
+        color: white;
+        font-style: italic;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .login-btn {
+        background-color: white;
+        color: #333;
+        padding: 10px;
+        border: none;
+        font-family: 'Century Gothic', sans-serif;
+        font-weight: bold;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .login-btn:hover {
+            background-color: yellow;
+            border-color: white;
+            color: black;
+        }
+
+    .password-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+        .password-container input {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+    .toggle-password {
+        position: absolute;
+        top: 40%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        user-select: none;
+        font-size: 18px;
+        color: #333;
+    }
+</style>
+
+<!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*THE*END*OF*FILE*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-->
