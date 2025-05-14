@@ -54,7 +54,7 @@ namespace ST10381071_PROG7311_3A_POE.Controllers
                 HttpContext.Session.SetString("UserName", name);
                 HttpContext.Session.SetString("UserRole", "Farmer");
 
-                return RedirectToAction("AddProduct", "Home", new { UserID = farmerID });
+                return RedirectToAction("ManageFarmerProducts", "Home", new { UserID = farmerID });
             }
 
             else if (employeeID != -1)

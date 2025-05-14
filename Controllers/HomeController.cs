@@ -71,15 +71,15 @@ namespace ST10381071_PROG7311_3A_POE.Controllers
             return View("~/Views/Home/ManageFarmerDetails.cshtml", farmers);
         }
 
+        [HttpGet]
         public IActionResult AddProduct(int userId)
         {
-            // Pass the userId to the view in a Product model
-            Product model = new Product
+            var model = new Product
             {
-                FarmerUserID = userId
+                FarmerUserID = userId 
             };
 
-            return View(model);
+            return View(model); 
         }
 
         [HttpPost]
@@ -89,9 +89,60 @@ namespace ST10381071_PROG7311_3A_POE.Controllers
             int result = productTable.Insert_Product(model);
 
             if (result > 0)
-                return RedirectToAction("AddProduct"); // Or wherever you want to redirect
+                return RedirectToAction("ManageFarmerProducts", new { userId = model.FarmerUserID });
             else
                 return View("Error"); // Handle failed insert
+        }
+
+        public IActionResult ManageFarmerProducts(int userId)
+        {
+            ViewBag.FarmerUserId = userId;
+
+            ProductTable productTable = new ProductTable();
+            var products = productTable.GetProductsByFarmer(userId, null, null, null);
+
+            return View(products);
+        }
+
+        public IActionResult EditProduct(int id)
+        {
+            ProductTable productTable = new ProductTable();
+            var product = productTable.GetProductById(id);
+
+            if (product == null)
+                return NotFound();
+
+            return View(product);
+        }
+
+        // POST: Edit Product
+        [HttpPost]
+        public IActionResult EditProduct(Product model)
+        {
+            if (ModelState.IsValid)
+            {
+                ProductTable productTable = new ProductTable();
+                int result = productTable.UpdateProduct(model);
+
+                if (result > 0)
+                    return RedirectToAction("ManageFarmerProducts", new { userId = model.FarmerUserID });
+            }
+
+            return View(model); // Show validation errors
+        }
+
+        public IActionResult DeleteProduct(int id)
+        {
+            ProductTable productTable = new ProductTable();
+            var product = productTable.GetProductById(id);
+
+            if (product == null)
+                return NotFound();
+
+            int result = productTable.DeleteProduct(id);
+
+            // Redirect back to the manage page with correct userId
+            return RedirectToAction("ManageFarmerProducts", new { userId = product.FarmerUserID });
         }
 
         public IActionResult SignUp()

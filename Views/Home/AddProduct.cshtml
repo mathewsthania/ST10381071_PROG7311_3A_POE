@@ -1,81 +1,106 @@
 ﻿@model ST10381071_PROG7311_3A_POE.Models.Product
 
-<form asp-controller="Home" asp-action="AddProduct" method="post" class="add-product-form">
-    <div class="form-header">
+<!-- Background -->
+<div class="editFarmer-background"></div>
+
+<!-- Foreground Content -->
+<div class="editFarmer-overlay">
+    <form asp-controller="Home" asp-action="AddProduct" method="post" class="editFarmer-form">
         <h2>Add New Product</h2>
-    </div>
+        <p class="editFarmer-message">Enter the product details below to add it to your list 🌾</p>
 
-    <label for="Name">Product Name</label>
-    <input type="text" name="Name" required />
+        <div class="form-group">
+            <label for="Name">Product Name</label>
+            <input type="text" name="Name" id="Name" class="form-control" required />
+        </div>
 
-    <label for="Category">Category</label>
-    <input type="text" name="Category" required />
+        <div class="form-group">
+            <label for="Category">Category</label>
+            <input type="text" name="Category" id="Category" class="form-control" required />
+        </div>
 
-    <label for="ProductionDate">Production Date</label>
-    <input type="date" name="ProductionDate" required />
+        <div class="form-group">
+            <label for="ProductionDate">Production Date</label>
+            <input type="date" name="ProductionDate" id="ProductionDate" class="form-control" required />
+        </div>
 
-    <label for="Price">Price (R)</label>
-    <input type="number" step="0.01" name="Price" required />
+        <div class="form-group">
+            <label for="Price">Price (R)</label>
+            <input type="number" step="0.01" name="Price" id="Price" class="form-control" required />
+        </div>
 
-    <input type="hidden" name="FarmerUserID" value="@Model.FarmerUserID" />
+        <input type="hidden" name="FarmerUserID" value="@Model.FarmerUserID" />
 
-    <button type="submit">Add Product</button>
-</form>
+        <button type="submit" class="updateFarmer-btn">Add Product</button>
+    </form>
+</div>
 
 <style>
-    body {
-        padding-top: 120px;
-        background-image: url('/images/farm-background.jpg'); /* Optional: replace with your image path */
+    .editFarmer-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/css/SIGNUP_BACKGROUND.png');
         background-size: cover;
-        background-position: center;
-        font-family: 'Century Gothic', sans-serif;
-        color: white;
+        z-index: -1;
+        opacity: 0.6;
     }
 
-    .add-product-form {
+    .editFarmer-overlay {
         max-width: 600px;
-        margin: 0 auto;
+        margin: 100px auto;
         padding: 30px;
-        background-color: rgba(33, 80, 37, 0.75); /* Transparent green */
+        background-color: rgba(33, 80, 37, 0.9);
         border-radius: 12px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        color: white;
+        font-family: 'Century Gothic', sans-serif;
     }
 
-    .form-header {
+    .editFarmer-form h2 {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .editFarmer-message {
         text-align: center;
         margin-bottom: 25px;
+        font-size: 14px;
     }
 
-    .add-product-form label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: bold;
-        color: #fff;
-    }
-
-    .add-product-form input,
-    .add-product-form button {
-        width: 100%;
+    .form-group {
         margin-bottom: 20px;
-        padding: 12px;
+    }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
         border-radius: 6px;
         border: none;
-        font-size: 16px;
-    }
-
-    .add-product-form input {
         background-color: #e8f5e9;
         color: #000;
     }
 
-    .add-product-form button {
+    .updateFarmer-btn {
+        width: 100%;
+        padding: 12px;
         background-color: yellow;
         color: black;
         font-weight: bold;
+        border: none;
+        border-radius: 6px;
         transition: background-color 0.3s, color 0.3s;
     }
 
-        .add-product-form button:hover {
+        .updateFarmer-btn:hover {
             background-color: black;
             color: yellow;
         }

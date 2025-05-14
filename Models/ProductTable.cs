@@ -108,6 +108,73 @@ namespace ST10381071_PROG7311_3A_POE.Models
             }
             return products;
         }
+
+        public Product GetProductById(int id)
+        {
+            using (var con = new SqliteConnection(con_string))
+            {
+                con.Open();
+                string sql = "SELECT * FROM Product WHERE ProductID = @ProductID";
+
+                using (var cmd = new SqliteCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@ProductID", id);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new Product
+                            {
+                                ProductID = Convert.ToInt32(reader["ProductID"]),
+                                Name = reader["Name"].ToString(),
+                                Category = reader["Category"].ToString(),
+                                ProductionDate = reader["ProductionDate"].ToString(),
+                                Price = Convert.ToDouble(reader["Price"]),
+                                FarmerUserID = Convert.ToInt32(reader["FarmerUserID"])
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public int UpdateProduct(Product product)
+        {
+            using (var con = new SqliteConnection(con_string))
+            {
+                con.Open(); 
+
+                string sql = "UPDATE Product SET Name = @Name, Category = @Category, ProductionDate = @ProductionDate, Price = @Price WHERE ProductID = @ProductID";
+
+                using (var cmd = new SqliteCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@Name", product.Name);
+                    cmd.Parameters.AddWithValue("@Category", product.Category);
+                    cmd.Parameters.AddWithValue("@ProductionDate", product.ProductionDate);
+                    cmd.Parameters.AddWithValue("@Price", product.Price);
+                    cmd.Parameters.AddWithValue("@ProductID", product.ProductID);
+
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public int DeleteProduct(int id)
+        {
+            using (var con = new SqliteConnection(con_string))
+            {
+                con.Open();
+                string sql = "DELETE FROM Product WHERE ProductID = @ProductID";
+
+                using (var cmd = new SqliteCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@ProductID", id);
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
 
